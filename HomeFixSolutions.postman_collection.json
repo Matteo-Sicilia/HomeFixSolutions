@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+		"name": "HomeFix Solutions API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Public: Create Service Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Riparazione Muro danneggiato in salotto.\",\n  \"address\": \"Via Garibaldi 10, Trieste\",\n  \"service_type\": \"edile\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"requests"
+					]
+				},
+				"description": "Creates a new service request via the public-facing Azure Function. Note: The default port for local Azure Functions is 7071. Adjust if necessary."
+			},
+			"response": []
+		},
+		{
+			"name": "Internal: Get All Service Requests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5092/api/requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5092",
+					"path": [
+						"api",
+						"requests"
+					]
+				},
+				"description": "Retrieves a list of all service requests for the internal web app."
+			},
+			"response": []
+		},
+		{
+			"name": "Internal: Get Available Technicians",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5092/api/technicians",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5092",
+					"path": [
+						"api",
+						"technicians"
+					]
+				},
+				"description": "Retrieves a list of all available technicians for the internal web app."
+			},
+			"response": []
+		},
+		{
+			"name": "Internal: Assign Technician to Request",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"technician_id\": 1,\n  \"scheduled_at\": \"2025-07-21T14:00:00\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5092/api/requests/1/assign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5092",
+					"path": [
+						"api",
+						"requests",
+						"1",
+						"assign"
+					]
+				},
+				"description": "Assigns a technician to a specific service request. Remember to change the '1' in the URL to a valid service request ID."
+			},
+			"response": []
+		}
+	]
+}
