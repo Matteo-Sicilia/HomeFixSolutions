@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Azure.Messaging.ServiceBus;
 using HomeFixSolutions.Shared.Data;
 using HomeFixSolutions.Shared.Services;
 using HomeFixSolutions.Shared.Services.Interfaces;
@@ -18,24 +17,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add custom services
 builder.Services.AddScoped<IServiceRequestService, ServiceRequestService>();
 builder.Services.AddScoped<ITechnicianService, TechnicianService>();
-
-
-// Add Service Bus
-builder.Services.AddSingleton<ServiceBusClient>(sp =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("ServiceBusConnectionString");
-    var clientOptions = new ServiceBusClientOptions()
-    {
-        TransportType = ServiceBusTransportType.AmqpWebSockets
-    };
-    return new ServiceBusClient(connectionString, clientOptions);
-});
-
-builder.Services.AddSingleton<ServiceBusSender>(sp =>
-{
-    var client = sp.GetRequiredService<ServiceBusClient>();
-    return client.CreateSender("esame");
-});
 
 var app = builder.Build();
 
