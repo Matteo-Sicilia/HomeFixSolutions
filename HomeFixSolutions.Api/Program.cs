@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using HomeFixSolutions.Shared.Data;
 using HomeFixSolutions.Shared.Services;
 using HomeFixSolutions.Shared.Services.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add Entity Framework
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
 
 // Add custom services
 builder.Services.AddScoped<IServiceRequestService, ServiceRequestService>();
